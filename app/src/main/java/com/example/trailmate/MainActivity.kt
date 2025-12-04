@@ -1,5 +1,6 @@
 package com.example.trailmate
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -24,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -47,6 +49,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainBody(){
+    var context = LocalContext.current
   Scaffold (
       modifier = Modifier.fillMaxSize()
   ){ padding ->
@@ -76,7 +79,11 @@ fun MainBody(){
           )
           Spacer(modifier = Modifier.padding(vertical= 10.dp))
           Button(
-              onClick = {},
+              onClick = {
+                  val intent = Intent(context, SignupActivity::class.java)
+
+                  context.startActivity(intent)
+              },
               modifier = Modifier
                   .width(210.dp)
                   .height(45.dp),
