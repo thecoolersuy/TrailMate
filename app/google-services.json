@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "403437014214",
+    "firebase_url": "https://trailmate-c3492-default-rtdb.firebaseio.com",
+    "project_id": "trailmate-c3492",
+    "storage_bucket": "trailmate-c3492.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403437014214:android:8c3e543ea0f47726d09bc7",
+        "android_client_info": {
+          "package_name": "com.example.trailmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqkCCe4lH0YV9TbouI_i6CQQ4Wi6Oi2hU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
