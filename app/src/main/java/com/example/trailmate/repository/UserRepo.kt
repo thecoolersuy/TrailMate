@@ -12,6 +12,7 @@ interface UserRepo {
     )
 
     fun register(
+        fullName : String,
         email: String,
         password: String,
         callback: (Boolean, String, String) -> Unit
@@ -38,7 +39,7 @@ interface UserRepo {
         callback: (Boolean, String, List<UserModel>?) -> Unit
     )
 
-    fun getCurrentUser(): FirebaseUser
+    fun getCurrentUser(): FirebaseUser?
 
     fun deleteAccount(
         userId: String,
@@ -46,6 +47,10 @@ interface UserRepo {
     )
 
     fun logOut(
+        callback: (Boolean, String) -> Unit
+    )
+    fun forgetPassword(
+        email:String,
         callback: (Boolean, String) -> Unit
     )
 }

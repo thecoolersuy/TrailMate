@@ -3,4 +3,5 @@
     <string name="title_activity_landing_page">LandingPageActivity</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_signin">SigninActivity</string>
 </resources>

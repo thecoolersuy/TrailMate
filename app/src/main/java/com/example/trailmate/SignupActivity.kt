@@ -3,13 +3,17 @@ package com.example.trailmate
 import com.example.trailmate.R
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +25,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -36,14 +42,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.trailmate.model.UserModel
+import com.example.trailmate.repository.UserRepoImpl
 import com.example.trailmate.ui.theme.BackButtonGrey
 import com.example.trailmate.ui.theme.BackgroundWhite
 import com.example.trailmate.ui.theme.Black
@@ -58,6 +70,7 @@ import com.example.trailmate.ui.theme.StrokeGrey
 
 import com.example.trailmate.ui.theme.TrailMateTheme
 import com.example.trailmate.ui.theme.White
+import com.example.trailmate.viewmodel.UserViewModel
 import java.nio.file.WatchEvent
 
 class SignupActivity : ComponentActivity() {
@@ -72,10 +85,14 @@ class SignupActivity : ComponentActivity() {
 
 @Composable
 fun SignupBody(){
+    val userViewModel = remember { UserViewModel(UserRepoImpl()) }
+
     var fullname by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmpassword by remember{ mutableStateOf("")}
+    var terms by remember { mutableStateOf(false) }
+    var context = LocalContext.current
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -106,7 +123,7 @@ fun SignupBody(){
                     tint = DarkGreen
                 )
             }
-            Spacer(modifier = Modifier.padding(top = 5.dp))
+            Spacer(modifier = Modifier.padding(top = 2.dp))
             Text("Create Account",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -115,7 +132,8 @@ fun SignupBody(){
                   fontSize = 30.sp,
                     fontWeight = FontWeight.ExtraBold,
                     color = DarkGreen,
-                    textAlign = TextAlign.Left
+                    textAlign = TextAlign.Left,
+                    fontFamily = FontFamily(Font(R.font.outfit))
                 )
             )
 
@@ -126,9 +144,10 @@ fun SignupBody(){
                     .padding(horizontal = 25.dp),
                 style = TextStyle(
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
+                    fontWeight = FontWeight.W600,
                     color = LightGreen,
-                    textAlign = TextAlign.Left
+                    textAlign = TextAlign.Left,
+                    fontFamily = FontFamily(Font(R.font.outfit))
                 ))
             Spacer(modifier = Modifier.padding(vertical = 25.dp))
             Text("Full Name",
@@ -137,8 +156,9 @@ fun SignupBody(){
                     .padding(horizontal = 25.dp),
                 style = TextStyle(
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = DarkGreen
+                    fontWeight = FontWeight.W600,
+                    color = DarkGreen,
+                    fontFamily = FontFamily(Font(R.font.outfit))
                 )
                 )
             Spacer(modifier = Modifier.padding(4.dp))
@@ -150,10 +170,13 @@ fun SignupBody(){
                 placeholder = {
                     Text(
                         "Enter your full name",
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp),
                         style = TextStyle(
                             fontSize = 16.sp,
                             color = LightGreen,
-                            fontWeight = FontWeight.Normal
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = FontFamily(Font(R.font.inter))
 
                         )
                     )
@@ -177,8 +200,9 @@ fun SignupBody(){
                     .padding(horizontal = 25.dp),
                 style = TextStyle(
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = DarkGreen
+                    fontWeight = FontWeight.SemiBold,
+                    color = DarkGreen,
+                    fontFamily = FontFamily(Font(R.font.outfit))
                 )
             )
             Spacer(modifier = Modifier.padding(vertical = 4.dp))
@@ -193,7 +217,8 @@ fun SignupBody(){
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 color = LightGreen,
-                                fontWeight = FontWeight.Normal
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = FontFamily(Font(R.font.inter))
 
                             )
                         )
@@ -217,8 +242,9 @@ fun SignupBody(){
                     .padding(horizontal = 25.dp),
                 style = TextStyle(
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = DarkGreen
+                    fontWeight = FontWeight.SemiBold,
+                    color = DarkGreen,
+                    fontFamily = FontFamily(Font(R.font.outfit))
                 )
             )
             Spacer(modifier = Modifier.padding(vertical = 4.dp))
@@ -233,7 +259,8 @@ fun SignupBody(){
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 color = LightGreen,
-                                fontWeight = FontWeight.Normal
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = FontFamily(Font(R.font.inter))
                             )
                         )
                     },
@@ -256,8 +283,9 @@ fun SignupBody(){
                     .padding(horizontal = 25.dp),
                 style = TextStyle(
                     fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = DarkGreen
+                    fontWeight = FontWeight.SemiBold,
+                    color = DarkGreen,
+                    fontFamily = FontFamily(Font(R.font.outfit))
                 )
             )
             Spacer(modifier = Modifier.padding(vertical = 4.dp))
@@ -272,7 +300,8 @@ fun SignupBody(){
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 color = LightGreen,
-                                fontWeight = FontWeight.Normal
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = FontFamily(Font(R.font.inter))
                             )
                         )
                     },
@@ -290,7 +319,43 @@ fun SignupBody(){
                 )
                 Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 Button(
-                    onClick = {},
+                    onClick = {
+                        if(!terms){
+//                           Toast
+                        }else{
+                            userViewModel.register(fullname, email, password){
+                                success, msg,userId ->
+                                if(success) {
+                                    val model = UserModel(
+                                        userId = userId,
+                                        fullName = "",
+                                        email = email,
+                                        password = password
+                                    )
+                                    userViewModel.addUserToDatabase(userId, model) { success, msg ->
+                                        if (success) {
+                                            Toast.makeText(
+                                                context,
+                                                msg,
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        } else {
+                                            Toast.makeText(
+                                                context,
+                                                msg,
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+
+                                        }
+                                    }
+                                }else{
+                                    Toast.makeText(context,
+                                        msg,
+                                        Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp)
@@ -303,22 +368,145 @@ fun SignupBody(){
                     Text("Create Account",
                         style = TextStyle(
                             fontSize = 16.sp,
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.SemiBold,
+                            fontFamily = FontFamily(Font(R.font.outfit))
                         ))
 
 
                 }
-                Spacer(modifier = Modifier.padding(vertical = 20.dp))
-                Text("or sign up with",
+            Spacer(modifier = Modifier.padding(vertical = 20.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+
+            ) {
+                HorizontalDivider(
                     modifier = Modifier
                         .fillMaxWidth()
-                    ,
+                        .padding(horizontal = 15.dp)
+                        .weight(1f)
+
+                )
+                Text(
+                    "or sign up with",
+
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
                     style = TextStyle(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
                         textAlign = TextAlign.Center,
                         color = LightGreen
-                    ))
+                    )
+                )
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 15.dp)
+                        .weight(1f)
+
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            Row() {
+                Button(
+                    onClick = {},
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(50.dp)
+                        .padding(horizontal = 10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = White,
+
+                    ),
+                    border = BorderStroke(2.dp ,StrokeGrey),
+                    shape = RoundedCornerShape(12.dp)
+
+                    ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.google),
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp),
+                            tint = Color.Unspecified
+
+                        )
+                        Spacer(modifier = Modifier.padding(horizontal = 6.dp))
+                        Text("Google",
+                            style = TextStyle(
+                                color = Black,
+                                fontFamily = FontFamily(Font(R.font.inter)),
+                                fontWeight = FontWeight.Normal
+                            ))
+                    }
+
+                }
+                Button(
+                    onClick = {},
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(50.dp)
+                        .padding(horizontal = 10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = White,
+
+                        ),
+                    border = BorderStroke(2.dp ,StrokeGrey),
+                    shape = RoundedCornerShape(12.dp)
+                    ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.apple),
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp),
+                            tint = Color.Unspecified
+
+                        )
+                        Spacer(modifier = Modifier.padding(horizontal = 6.dp))
+
+
+
+                        Text("Apple",
+                            style = TextStyle(
+                                color = Black,
+                                fontFamily = FontFamily(Font(R.font.inter)),
+                                fontWeight = FontWeight.Normal
+                            ))
+
+                    }
+
+
+                }
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Row (
+                 modifier = Modifier
+                     .padding(horizontal = 75.dp)
+            ){
+                Text(
+                    text = "Already have an account? ",
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                        ,
+                    color = LightGreen,
+                    fontWeight = FontWeight.Medium,
+                    fontFamily = FontFamily(Font(R.font.inter))
+                )
+                Text(
+                    text = "Sign In",
+                    color = Color(0xFF008080),
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily(Font(R.font.inter)),
+                    modifier = Modifier
+                        .clickable(){
+
+                    }
+                )
+            }
 
         }
 

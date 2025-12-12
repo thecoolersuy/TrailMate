@@ -1,15 +1,15 @@
 package com.example.trailmate
 
+import com.example.trailmate.R
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -27,22 +26,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.Typeface
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.trailmate.ui.theme.Black
-import com.example.trailmate.ui.theme.Blue
+import androidx.core.content.res.ResourcesCompat
 import com.example.trailmate.ui.theme.Green
 import com.example.trailmate.ui.theme.StrokeGrey
 import com.example.trailmate.ui.theme.TextGreen
-import com.example.trailmate.ui.theme.TrailMateTheme
 import com.example.trailmate.ui.theme.White
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,19 +85,22 @@ fun MainBody(){
                  fontSize = 42.sp,
                  fontWeight = FontWeight.ExtraBold,
                  textAlign = TextAlign.Left,
-                 color = White
+                 color = White,
+                 fontFamily = FontFamily(Font(R.font.outfit))
              ))
           Spacer(modifier = Modifier.padding(vertical =8.dp))
           Text("Discover extraordinary adventures\n" +
                   "with expert local guides. Your journey\n" +
                   "starts here.",
-              modifier = Modifier.fillMaxWidth()
-                  .padding(horizontal = 40.dp),
+              modifier = Modifier
+                  .fillMaxWidth()
+                  .padding(horizontal = 36.dp),
               style = TextStyle(
                   fontSize = 18.sp,
                   textAlign = TextAlign.Left,
                   color = White,
-                  fontWeight = FontWeight.Normal
+                  fontWeight = FontWeight.Normal,
+                  fontFamily = FontFamily(Font(R.font.inter))
               )
           )
           Spacer(modifier = Modifier.padding(vertical= 20.dp))
@@ -119,7 +122,8 @@ fun MainBody(){
                   style = TextStyle(
                       fontSize = 15.sp,
                       fontWeight = FontWeight.Bold,
-                      color = TextGreen
+                      color = TextGreen,
+                      fontFamily = FontFamily(Font(R.font.inter))
                   ))
           }
           Spacer(modifier = Modifier.padding(vertical = 8.dp))
@@ -143,7 +147,8 @@ fun MainBody(){
                   style = TextStyle(
                       fontSize = 15.sp,
                       fontWeight = FontWeight.Bold,
-                      color = White
+                      color = White,
+                      fontFamily = FontFamily(Font(R.font.inter))
                   ))
 
           }
@@ -151,10 +156,13 @@ fun MainBody(){
           Text("By continuing, you agree to our Terms & Privacy Policy",
 
               style = TextStyle(
-                  color = StrokeGrey.copy(alpha = 0.8f)
+                  fontSize = 13.sp,
+                  color = StrokeGrey.copy(alpha = 0.8f),
+                  fontFamily = FontFamily(Font(R.font.inter))
               ),
               modifier = Modifier
                   .padding(bottom = 25.dp)
+                  .padding(horizontal = 32.dp)
               )
       }
 
