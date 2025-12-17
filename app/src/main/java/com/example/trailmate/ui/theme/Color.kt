@@ -26,5 +26,6 @@ val StrokeGrey = Color(0xFFE0DDD1)
 val BackButtonGrey = Color(0xFFEBE8E0)
 val BackgroundWhite = Color(0xFFF8F6F2)
 val ButtonGreen = Color(0xFF318167)
+val DeepGreen = Color(0xFF2A6D57)
 
 

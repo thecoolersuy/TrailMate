@@ -3,7 +3,7 @@ package com.example.trailmate.model
 data class PackageModel(
     val packageId : String = "",
     val userId : String ="",
-    val packageImage : String = "",
+    val packageImage : String = "https://cdn.experienceandamans.com/images/andaman-tour-packages.jpeg",
     val packageName : String ="",
     val packageDuration : String="",
     val packageCapacity: String ="",
@@ -17,9 +17,9 @@ data class PackageModel(
             "packageImage" to packageImage,
             "packageName" to packageName,
             "packageDuration" to packageDuration,
-            "packageCapacity" to packageCapacity,
             "packageDifficulty" to packageDifficulty,
-            "packagePrice" to packagePrice
+            "packagePrice" to packagePrice,
+            "packageCapacity" to packageCapacity,
         )
     }
 }

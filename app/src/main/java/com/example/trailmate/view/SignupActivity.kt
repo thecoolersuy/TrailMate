@@ -1,5 +1,6 @@
-package com.example.trailmate
+package com.example.trailmate.view
 
+import android.content.Intent
 import com.example.trailmate.R
 import android.os.Bundle
 import android.widget.Button
@@ -107,7 +108,11 @@ fun SignupBody(){
 
         ){
             IconButton(
-                onClick = {},
+                onClick = {
+                    val intent = Intent(context, MainActivity::class.java)
+
+                    context.startActivity(intent)
+                },
                 modifier = Modifier
                     .padding( 20.dp)
                     .size(45.dp)
@@ -296,7 +301,7 @@ fun SignupBody(){
                     },
                     placeholder = {
                         Text(
-                            " Confirm your password",
+                            "Confirm your password",
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 color = LightGreen,
@@ -320,15 +325,13 @@ fun SignupBody(){
                 Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 Button(
                     onClick = {
-                        if(!terms){
-//                           Toast
-                        }else{
-                            userViewModel.register(fullname, email, password){
+
+                            userViewModel.register( email, password){
                                 success, msg,userId ->
                                 if(success) {
                                     val model = UserModel(
                                         userId = userId,
-                                        fullName = "",
+                                        fullName = fullname,
                                         email = email,
                                         password = password
                                     )
@@ -354,7 +357,7 @@ fun SignupBody(){
                                         Toast.LENGTH_SHORT).show()
                                 }
                             }
-                        }
+
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -460,7 +463,7 @@ fun SignupBody(){
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.apple),
+                            painter = painterResource(R.drawable.facebook),
                             contentDescription = null,
                             modifier = Modifier.size(20.dp),
                             tint = Color.Unspecified
@@ -470,7 +473,7 @@ fun SignupBody(){
 
 
 
-                        Text("Apple",
+                        Text("Facebook",
                             style = TextStyle(
                                 color = Black,
                                 fontFamily = FontFamily(Font(R.font.inter)),
@@ -503,7 +506,9 @@ fun SignupBody(){
                     fontFamily = FontFamily(Font(R.font.inter)),
                     modifier = Modifier
                         .clickable(){
+                            val intent = Intent(context, SigninActivity::class.java)
 
+                            context.startActivity(intent)
                     }
                 )
             }

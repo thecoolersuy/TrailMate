@@ -4,4 +4,9 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_signin">SigninActivity</string>
+    <string name="title_activity_package">PackageActivity</string>
+    <string name="title_activity_create_package">CreatePackage</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_forget_password">ForgetPasswordActivity</string>
+    <string name="title_activity_organizati2">OrganizatiActivity2</string>
 </resources>

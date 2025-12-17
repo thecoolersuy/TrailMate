@@ -12,7 +12,7 @@ interface UserRepo {
     )
 
     fun register(
-        fullName : String,
+
         email: String,
         password: String,
         callback: (Boolean, String, String) -> Unit

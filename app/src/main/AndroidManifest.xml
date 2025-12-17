@@ -12,7 +12,51 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TrailMate">
         <activity
-            android:name=".SigninActivity"
+            android:name=".view.ForgetPasswordActivity"
+            android:exported="true"
+            android:label="@string/title_activity_forget_password"
+            android:theme="@style/Theme.TrailMate">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.DashboardActivity"
+            android:exported="true"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/Theme.TrailMate">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.CreatePackage"
+            android:exported="true"
+            android:label="@string/title_activity_create_package"
+            android:theme="@style/Theme.TrailMate">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.PackageActivity"
+            android:exported="true"
+            android:label="@string/title_activity_package"
+            android:theme="@style/Theme.TrailMate">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.SigninActivity"
             android:exported="true"
             android:label="@string/title_activity_signin"
             android:theme="@style/Theme.TrailMate">
@@ -23,7 +67,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".view.SignupActivity"
             android:exported="true"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.TrailMate">
@@ -34,7 +78,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:exported="true"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.TrailMate">

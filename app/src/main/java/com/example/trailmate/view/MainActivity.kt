@@ -1,4 +1,4 @@
-package com.example.trailmate
+package com.example.trailmate.view;
 
 import com.example.trailmate.R
 import android.content.Intent
@@ -129,7 +129,7 @@ fun MainBody(){
           Spacer(modifier = Modifier.padding(vertical = 8.dp))
           Button(
               onClick = {
-                  val intent = Intent(context, SignupActivity::class.java)
+                  val intent = Intent(context, SigninActivity::class.java)
 
                   context.startActivity(intent)
               },
