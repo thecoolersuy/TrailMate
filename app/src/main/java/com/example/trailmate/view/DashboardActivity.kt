@@ -1,18 +1,24 @@
 package com.example.trailmate.view
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import com.example.trailmate.R
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
@@ -22,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,8 +44,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.trailmate.repository.PackageRepoImpl
+import com.example.trailmate.ui.theme.BackgroundWhite
 import com.example.trailmate.ui.theme.ButtonGreen
 import com.example.trailmate.ui.theme.White
+import com.example.trailmate.viewmodel.PackageViewModel
 
 class DashboardActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,28 +78,26 @@ fun DashboardBody(){
         NavItem(label = "Bookings", icon = R.drawable.calendar),
         NavItem(label = "Profile", icon = R.drawable.user),
     )
+
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {Text("Hello ")},
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = ButtonGreen,
-                    navigationIconContentColor = White,
-                    titleContentColor = White,
-                    actionIconContentColor = White,
-                ),
-                actions = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            painter = painterResource(R.drawable.user),
-                            contentDescription = null
-                        )
-                    }
-                }
-            )
+        floatingActionButton ={
+            FloatingActionButton(onClick = {
+                val intent = Intent(
+                    context,
+                    CreatePackage::class.java
+                )
+                context.startActivity(intent)
+            }){
+                Icon(
+                    Icons.Default.Add, contentDescription = null
+                )
+            }
         },
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = BackgroundWhite,
+                tonalElevation = 0.dp
+            ) {
                 navList.forEachIndexed { index, item ->
                     NavigationBarItem(
                         icon = {
@@ -111,7 +120,10 @@ fun DashboardBody(){
                         selected = selectedIndex == index,
                         onClick = {
                             selectedIndex = index
-                        }
+                        },
+                        modifier = Modifier.background(BackgroundWhite)
+                            .padding(top = 15.dp)
+
                     )
                 }
             }

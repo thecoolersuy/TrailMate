@@ -1,23 +1,191 @@
 package com.example.trailmate.view
 
+import android.widget.Toast
+import com.example.trailmate.R
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.trailmate.repository.PackageRepoImpl
+import com.example.trailmate.ui.theme.BackgroundWhite
 import com.example.trailmate.ui.theme.Black
 import com.example.trailmate.ui.theme.Blue
+import com.example.trailmate.ui.theme.DarkGreen
+import com.example.trailmate.ui.theme.Grey
+import com.example.trailmate.ui.theme.White
+import com.example.trailmate.viewmodel.PackageViewModel
 
 @Composable
 fun ExploreScreen(){
-    Scaffold (){ padding ->
-        Column (
+    val packageViewModel = remember { PackageViewModel(PackageRepoImpl()) }
+    val context = LocalContext.current
+    LaunchedEffect (Unit) {
+        packageViewModel.getAllPackage()
+    }
+    val allPackages = packageViewModel.allPackages.observeAsState(initial = emptyList())
+    var showDialog by remember { mutableStateOf(false) }
+    Column (
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+    ){
+        Spacer(modifier = Modifier.height(24.dp))
+        Text(
+            "Explore Packages",
+            style = TextStyle(
+                color = DarkGreen,
+                fontWeight = FontWeight.Bold,
+                fontSize = 30.sp,
+                fontFamily = FontFamily(Font(R.font.outfit))
+            ),
+            modifier = Modifier
+                .padding(horizontal = 25.dp)
+        )
+        Spacer(modifier = Modifier.height(20.dp))
+        OutlinedTextField(
+            value = "",
+            onValueChange = {},
+            placeholder = {
+
+                    Icon(
+                        painter = painterResource(R.drawable.search),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(30.dp),
+                        tint = Grey
+
+                    )
+                    Text("Search packages...")
+
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+                .background(White),
+            shape = RoundedCornerShape(16.dp)
+
+        )
+
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Black)
-        ){  }
+                .background(BackgroundWhite)
+        ) {
+            item {
+                if (showDialog) {
+                    AlertDialog(
+                        onDismissRequest = {
+                            showDialog = false
+                        },
+                        confirmButton = {
+                            TextButton(onClick = {}) { Text("Update") }
+                        },
+                        dismissButton = {
+                            TextButton(onClick = {
+                                showDialog = false
+                            }) { Text("Cancel") }
+                        },
+                        title = { Text("Update Package") },
+                        text = {
+                            Column {
 
+                            }
+                        }
+                    )
+                }
+            }
+            items(allPackages.value!!.size) { index ->
+                val data = allPackages.value!![index]
+                Card(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
+
+                    Row(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
+                        Column(
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(data.packageName)
+                            Text(data.packageDuration)
+                            Text(data.packageCapacity)
+                            Text(data.packageDifficulty)
+                            Text(data.packagePrice)
+
+                        }
+                        Column(
+                            verticalArrangement = Arrangement.Top
+                        ) {
+                            IconButton(onClick = {
+                                showDialog = true
+                            }) {
+                                Icon(
+                                    Icons.Default.Edit,
+                                    contentDescription = null,
+                                    tint = Color.Green
+                                )
+                            }
+                            IconButton(onClick = {
+                                packageViewModel.deletePackage(data.packageId) { succes, msg ->
+                                    if (succes) {
+                                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+
+                                    }
+                                }
+                            }) {
+                                Icon(
+                                    Icons.Default.Delete,
+                                    contentDescription = null,
+                                    tint = Color.Red
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
     }
+}
+
+@Preview
+@Composable
+fun PreviewExploreScreen(){
+    ExploreScreen()
 }

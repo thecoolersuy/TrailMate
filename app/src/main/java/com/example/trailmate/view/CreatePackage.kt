@@ -1,6 +1,7 @@
 package com.example.trailmate.view
 
-import android.R
+import android.app.Activity
+import com.example.trailmate.R
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -29,6 +30,7 @@ import com.example.trailmate.ui.theme.TrailMateTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -39,8 +41,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.trailmate.model.PackageModel
 import com.example.trailmate.model.UserModel
+import com.example.trailmate.repository.PackageRepoImpl
 import com.example.trailmate.ui.theme.ButtonGreen
 import com.example.trailmate.ui.theme.DarkGreen
+import com.example.trailmate.viewmodel.PackageViewModel
 
 
 class CreatePackage : ComponentActivity() {
@@ -56,14 +60,19 @@ class CreatePackage : ComponentActivity() {
 
 @Composable
 fun CreatePackageBody(){
-    Scaffold (
 
-    ){ padding->
         var packageName by remember { mutableStateOf("") }
         var packageDuration by remember {mutableStateOf("")}
         var packageCapacity by remember { mutableStateOf("") }
         var packageDifficulty by remember { mutableStateOf("") }
         var packagePrice by remember { mutableStateOf("") }
+
+        val context = LocalContext.current;
+        val activity = context as? Activity
+        val packageViewModel = remember { PackageViewModel(PackageRepoImpl()) }
+    Scaffold (
+
+    ){ padding->
 
 
         Column(
@@ -132,7 +141,23 @@ fun CreatePackageBody(){
             Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = {
-                    
+                        val model = PackageModel(
+                            "",
+                            packageName,
+                            packageDuration,
+                            packageCapacity,
+                            packageDifficulty,
+                            packagePrice
+                        )
+                        packageViewModel.addPackage(model) { success, message ->
+                            if (success) {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                activity?.finish()
+                            } else {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+
+                            }
+                        }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
