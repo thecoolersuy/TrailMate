@@ -18,11 +18,10 @@ class PackageViewModel(val repo: PackageRepo): ViewModel() {
     }
 
     fun editProduct(
-        packageId: String,
         model: PackageModel,
         callback: (Boolean, String) -> Unit
     ) {
-        repo.editPackage(packageId, model, callback)
+        repo.editPackage(model,callback)
     }
 
     private val _packages = MutableLiveData< PackageModel?>()
@@ -50,5 +49,8 @@ class PackageViewModel(val repo: PackageRepo): ViewModel() {
             }
         }
     }
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: MutableLiveData<Boolean> get() = _loading
 
 }

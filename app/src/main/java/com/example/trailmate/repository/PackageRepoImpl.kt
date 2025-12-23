@@ -26,7 +26,6 @@ class PackageRepoImpl  : PackageRepo{
                 callback(true, "Package added successfully")
             } else {
                 callback(false, "${it.exception?.message}")
-
             }
         }
     }
@@ -46,11 +45,10 @@ class PackageRepoImpl  : PackageRepo{
     }
 
     override fun editPackage(
-        packageId: String,
         model: PackageModel,
         callback: (Boolean, String) -> Unit
     ) {
-        ref.child(packageId).updateChildren(model.toMap()).addOnCompleteListener {
+        ref.child(model.packageId).updateChildren(model.toMap()).addOnCompleteListener {
             if (it.isSuccessful) {
                 callback(true, "Package updated successfully")
             } else {

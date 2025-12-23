@@ -14,7 +14,7 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val Blue = Color(0xFF1F41BC)
-val Grey = Color(0xFFF6F7F9)
+val Grey = Color(0xFF5D5D5D)
 val LightBlue = Color(0xFFF0F2FF)
 
 val Green = Color(0xFF235C49)
@@ -24,7 +24,7 @@ val DarkGreen = Color(0xFF1D3029)
 val LightGreen = Color(0xFF628478)
 val StrokeGrey = Color(0xFFE0DDD1)
 val BackButtonGrey = Color(0xFFEBE8E0)
-val BackgroundWhite = Color(0xFFF8F6F2)
+val BackgroundWhite = Color(0xFFF9F7F2)
 val ButtonGreen = Color(0xFF318167)
 
 val OffWhite= Color(0xFFE0DDD1)

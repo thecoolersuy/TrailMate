@@ -18,7 +18,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
@@ -64,11 +66,13 @@ fun MainBody(){
           modifier = Modifier
               .background(Green)
               .padding(padding)
-              .fillMaxSize(),
+              .fillMaxSize()
+              .verticalScroll(rememberScrollState()),
+
           verticalArrangement = Arrangement.Center,
           horizontalAlignment = Alignment.CenterHorizontally
       ){
-          Spacer(modifier = Modifier.height(70.dp))
+          Spacer(modifier = Modifier.height(50.dp))
           Image(
               painter = painterResource(R.drawable.vectorlogin),
               contentDescription = null,
@@ -76,17 +80,17 @@ fun MainBody(){
                   .width(400.dp)
                   .height(300.dp)
           )
-          Spacer(modifier = Modifier.padding(vertical = 40.dp))
+          Spacer(modifier = Modifier.height(40.dp))
          Text("TrailMate",
              modifier = Modifier
                  .fillMaxWidth()
                  .padding(horizontal = 40.dp),
              style = TextStyle(
                  fontSize = 42.sp,
-                 fontWeight = FontWeight.ExtraBold,
+//                 fontWeight = FontWeight.ExtraBold,
                  textAlign = TextAlign.Left,
                  color = White,
-                 fontFamily = FontFamily(Font(R.font.outfit))
+                 fontFamily = FontFamily(Font(R.font.outfitbold))
              ))
           Spacer(modifier = Modifier.padding(vertical =8.dp))
           Text("Discover extraordinary adventures\n" +
@@ -103,7 +107,7 @@ fun MainBody(){
                   fontFamily = FontFamily(Font(R.font.inter))
               )
           )
-          Spacer(modifier = Modifier.padding(vertical= 20.dp))
+          Spacer(modifier = Modifier.height(15.dp))
           Button(
               onClick = {
                   val intent = Intent(context, SignupActivity::class.java)
@@ -152,7 +156,7 @@ fun MainBody(){
                   ))
 
           }
-          Spacer(modifier = Modifier.weight(1f))
+          Spacer(modifier = Modifier.height(50.dp))
           Text("By continuing, you agree to our Terms & Privacy Policy",
 
               style = TextStyle(

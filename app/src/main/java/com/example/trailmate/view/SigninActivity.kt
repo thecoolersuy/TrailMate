@@ -132,10 +132,10 @@ fun SigninBody(){
                     .padding(horizontal = 25.dp),
                 style = TextStyle(
                     fontSize = 30.sp,
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     color = DarkGreen,
                     textAlign = TextAlign.Left,
-                    fontFamily = FontFamily(Font(R.font.outfit))
+                    fontFamily = FontFamily(Font(R.font.outfitbold))
                 )
             )
 

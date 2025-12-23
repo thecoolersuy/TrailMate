@@ -1,22 +1,33 @@
 package com.example.trailmate.view
 
 import android.app.Activity
+import android.net.Uri
 import com.example.trailmate.R
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -30,6 +41,8 @@ import com.example.trailmate.ui.theme.TrailMateTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -39,6 +52,7 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.trailmate.model.PackageModel
 import com.example.trailmate.model.UserModel
 import com.example.trailmate.repository.PackageRepoImpl
@@ -70,6 +84,7 @@ fun CreatePackageBody(){
         val context = LocalContext.current;
         val activity = context as? Activity
         val packageViewModel = remember { PackageViewModel(PackageRepoImpl()) }
+
     Scaffold (
 
     ){ padding->
@@ -105,27 +120,7 @@ fun CreatePackageBody(){
                         data -> packageDuration = data
                 },
                 placeholder = {
-                    Text("SELECT")
-                }
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(
-                value = packageDifficulty,
-                onValueChange = {
-                        data -> packageDifficulty = data
-                },
-                placeholder = {
-                    Text("SELECT")
-                }
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextField(
-                value = packagePrice,
-                onValueChange = {
-                        data -> packagePrice = data
-                },
-                placeholder = {
-                    Text("e.g. 2500")
+                    Text("Duration")
                 }
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -135,7 +130,27 @@ fun CreatePackageBody(){
                         data -> packageCapacity = data
                 },
                 placeholder = {
-                    Text("Max 15")
+                    Text("Capacity")
+                }
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            OutlinedTextField(
+                value = packageDifficulty,
+                onValueChange = {
+                        data -> packageDifficulty = data
+                },
+                placeholder = {
+                    Text("e.g.easy, medium hard ")
+                }
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            OutlinedTextField(
+                value = packagePrice,
+                onValueChange = {
+                        data -> packagePrice = data
+                },
+                placeholder = {
+                    Text("NPR / $")
                 }
             )
             Spacer(modifier = Modifier.height(20.dp))
@@ -143,11 +158,11 @@ fun CreatePackageBody(){
                 onClick = {
                         val model = PackageModel(
                             "",
-                            packageName,
-                            packageDuration,
-                            packageCapacity,
-                            packageDifficulty,
-                            packagePrice
+                            packageName=packageName,
+                            packageDuration = packageDuration.toIntOrNull() ?: 0,
+                            packageCapacity = packageCapacity.toIntOrNull() ?:0,
+                            packageDifficulty = packageDifficulty,
+                            packagePrice = packagePrice.toDoubleOrNull() ?:0.0
                         )
                         packageViewModel.addPackage(model) { success, message ->
                             if (success) {

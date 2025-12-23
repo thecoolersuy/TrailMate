@@ -128,17 +128,17 @@ fun SignupBody(){
                     tint = DarkGreen
                 )
             }
-            Spacer(modifier = Modifier.padding(top = 2.dp))
+            Spacer(modifier = Modifier.height(2.dp))
             Text("Create Account",
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 25.dp),
                 style = TextStyle(
                   fontSize = 30.sp,
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontWeight = FontWeight.ExtraBold,
                     color = DarkGreen,
                     textAlign = TextAlign.Left,
-                    fontFamily = FontFamily(Font(R.font.outfit))
+                    fontFamily = FontFamily(Font(R.font.outfitbold))
                 )
             )
 
@@ -154,7 +154,7 @@ fun SignupBody(){
                     textAlign = TextAlign.Left,
                     fontFamily = FontFamily(Font(R.font.outfit))
                 ))
-            Spacer(modifier = Modifier.padding(vertical = 25.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Text("Full Name",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -198,7 +198,7 @@ fun SignupBody(){
                 ),
                 shape = RoundedCornerShape(10.dp)
             )
-                Spacer(modifier = Modifier.padding(vertical = 12.dp))
+                Spacer(modifier = Modifier.height(10.dp))
             Text("Email",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -240,7 +240,7 @@ fun SignupBody(){
                     ),
                     shape = RoundedCornerShape(10.dp)
                 )
-                Spacer(modifier = Modifier.padding(vertical = 12.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Text("Password",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -281,7 +281,7 @@ fun SignupBody(){
                     ),
                     shape = RoundedCornerShape(10.dp)
                 )
-            Spacer(modifier = Modifier.padding(vertical = 12.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Text("Confirm password",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -377,7 +377,7 @@ fun SignupBody(){
 
 
                 }
-            Spacer(modifier = Modifier.padding(vertical = 20.dp))
+            Spacer(modifier = Modifier.height(3.dp))
             Row(
                 verticalAlignment = Alignment.CenterVertically
 

@@ -13,7 +13,6 @@ interface PackageRepo {
     fun deletePackage(packageId: String, callback: (Boolean, String) -> Unit)
 
     fun editPackage(
-        packageId: String,
         model: PackageModel,
         callback: (Boolean, String) -> Unit
     )

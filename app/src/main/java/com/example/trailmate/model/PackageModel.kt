@@ -3,10 +3,10 @@ package com.example.trailmate.model
 data class PackageModel(
     var packageId : String = "",
     val packageName : String ="",
-    val packageDuration : String="",
-    val packageCapacity: String ="",
+    val packageDuration : Int = 0,
+    val packageCapacity: Int = 0,
     val packageDifficulty : String ="",
-    val packagePrice : String =""
+    val packagePrice : Double = 0.0
 ){
     fun toMap(): Map<String, Any?>{
         return mapOf(
