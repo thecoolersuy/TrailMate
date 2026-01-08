@@ -103,12 +103,21 @@ fun ExploreScreen() {
     ) {
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            "Explore Packages",
+            "Explore",
             style = TextStyle(
                 color = DarkGreen,
-                fontWeight = FontWeight.Bold,
                 fontSize = 30.sp,
-                fontFamily = FontFamily(Font(R.font.outfit))
+                fontFamily = FontFamily(Font(R.font.outfitbold))
+            ),
+            modifier = Modifier
+                .padding(horizontal = 25.dp)
+        )
+        Text(
+            "Discover amazing adventures",
+            style = TextStyle(
+                color = LightGreen,
+                fontSize = 20.sp,
+                fontFamily = FontFamily(Font(R.font.outfitregular))
             ),
             modifier = Modifier
                 .padding(horizontal = 25.dp)
