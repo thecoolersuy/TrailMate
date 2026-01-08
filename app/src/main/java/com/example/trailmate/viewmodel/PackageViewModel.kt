@@ -1,5 +1,7 @@
 package com.example.trailmate.viewmodel
 
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.trailmate.model.PackageModel
@@ -53,4 +55,7 @@ class PackageViewModel(val repo: PackageRepo): ViewModel() {
     private val _loading = MutableLiveData<Boolean>()
     val loading: MutableLiveData<Boolean> get() = _loading
 
+    fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit){
+        repo.uploadImage(context,imageUri,callback)
+    }
 }

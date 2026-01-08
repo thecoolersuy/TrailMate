@@ -24,12 +24,13 @@ val DarkGreen = Color(0xFF1D3029)
 val LightGreen = Color(0xFF628478)
 val StrokeGrey = Color(0xFFE0DDD1)
 val BackButtonGrey = Color(0xFFEBE8E0)
-val BackgroundWhite = Color(0xFFF9F7F2)
+val BackgroundWhite = Color(0xFFFFFFFF)
 val ButtonGreen = Color(0xFF318167)
 
 val OffWhite= Color(0xFFE0DDD1)
 
 
 val DeepGreen = Color(0xFF2A6D57)
+val OrangeText = Color(0xFFD17147)
 
 

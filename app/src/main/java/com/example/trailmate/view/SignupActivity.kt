@@ -1,6 +1,7 @@
 package com.example.trailmate.view
 
 import android.content.Intent
+import android.hardware.lights.Light
 import com.example.trailmate.R
 import android.os.Bundle
 import android.widget.Button
@@ -10,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,7 +24,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -89,6 +93,7 @@ fun SignupBody(){
     val userViewModel = remember { UserViewModel(UserRepoImpl()) }
 
     var fullname by remember { mutableStateOf("") }
+    var location by remember {mutableStateOf("")}
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmpassword by remember{ mutableStateOf("")}
@@ -103,7 +108,8 @@ fun SignupBody(){
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .background(BackgroundWhite),
+                .background(BackgroundWhite)
+                .verticalScroll(rememberScrollState())
 
 
         ){
@@ -198,7 +204,50 @@ fun SignupBody(){
                 ),
                 shape = RoundedCornerShape(10.dp)
             )
-                Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp))
+            Text("Location",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 18.dp)
+                ,
+                style = TextStyle(
+                    color = DarkGreen,
+                    fontFamily = FontFamily(Font(R.font.outfitbold)),
+                    fontSize = 15.sp
+                ))
+            Spacer(modifier = Modifier.padding(4.dp))
+            OutlinedTextField(
+                value = location,
+                onValueChange = {data ->
+                    location = data
+                },
+                modifier = Modifier
+                    .background(White)
+                    .fillMaxWidth()
+                    .padding(horizontal = 25.dp)
+                    .border(width = 1.dp, color = StrokeGrey, shape = RoundedCornerShape(15.dp))
+                    .clip(RoundedCornerShape(15.dp)),
+                placeholder = {
+                    Text("Enter your location",
+                        modifier = Modifier
+                            .padding(horizontal = 10.dp),
+                        style = TextStyle(
+                            color= LightGreen,
+                            fontSize = 18.sp,
+                            fontFamily = FontFamily(Font(R.font.outfitregular))
+                        )
+                    )
+
+                },
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = White,
+                    unfocusedContainerColor = White,
+                    focusedBorderColor = StrokeGrey,
+                    unfocusedBorderColor = StrokeGrey
+
+                )
+            )
+
             Text("Email",
                 modifier = Modifier
                     .fillMaxWidth()
@@ -332,6 +381,7 @@ fun SignupBody(){
                                     val model = UserModel(
                                         userId = userId,
                                         fullName = fullname,
+                                        location = location,
                                         email = email,
                                         password = password
                                     )

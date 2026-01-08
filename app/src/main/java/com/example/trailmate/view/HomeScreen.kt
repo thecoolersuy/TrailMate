@@ -1,5 +1,6 @@
 package com.example.trailmate.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import com.example.trailmate.R
 import androidx.compose.foundation.layout.Box
@@ -44,6 +45,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -54,6 +57,7 @@ import com.example.trailmate.ui.theme.ButtonGreen
 import com.example.trailmate.ui.theme.DarkGreen
 import com.example.trailmate.ui.theme.Grey
 import com.example.trailmate.ui.theme.LightGreen
+import com.example.trailmate.ui.theme.OrangeText
 import com.example.trailmate.ui.theme.StrokeGrey
 import com.example.trailmate.viewmodel.UserViewModel
 
@@ -64,57 +68,90 @@ fun HomeScreen(){
     val allUsers = userViewModel.allUsers.observeAsState(initial = emptyList())
     LaunchedEffect(Unit) {
         userViewModel.getAllUser()
+
     }
 
-    Scaffold (){ padding ->
+    Scaffold () { padding ->
         Box(modifier = Modifier.fillMaxSize()) {
+
+            Image(
+                painter = painterResource(R.drawable.heromountain),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(450.dp),
+                contentScale = ContentScale.Crop
+            )
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(280.dp)
+                    .height(700.dp)
                     .background(
-                        color = Green,
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Black.copy(alpha = 0.3f),
+                                Color.Transparent
+                            )
+                        )
                     )
                     .padding(20.dp)
             ) {
-                Text("Himachal Pradesh, India",
+                Text(
+                    "Welcome back",
                     style = TextStyle(
                         color = White,
                         fontFamily = FontFamily(Font(R.font.outfitregular)),
                         fontSize = 16.sp
                     )
                 )
-                Spacer(modifier = Modifier.height(50.dp))
-                Text("Good morning, Alex!",
-                    style = TextStyle(
-                        color = White,
-                        fontFamily = FontFamily(Font(R.font.outfitregular)),
-                        fontSize = 16.sp
-                    ))
-                Spacer(modifier = Modifier.height(3.dp))
+                Spacer(modifier = Modifier.padding(vertical = 1.dp))
                 Text(
-                    "Find your perfect\nadventure guide",
+                    "Explorer",
                     style = TextStyle(
                         color = White,
                         fontFamily = FontFamily(Font(R.font.outfitbold)),
-                        fontSize = 30.sp
+                        fontSize = 26.sp
+                    )
                 )
+                Spacer(modifier = Modifier.padding(vertical = 84.dp))
+                Text(
+                    "Find Your Perfect",
+                    style = TextStyle(
+                        color = White,
+                        fontFamily = FontFamily(Font(R.font.outfitbold)),
+                        fontSize = 35.sp
+                    )
                 )
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.padding(vertical = 1.dp))
+                Text(
+                    "Trail Guide",
+                    style = TextStyle(
+                        color = OrangeText,
+                        fontFamily = FontFamily(Font(R.font.outfitbold)),
+                        fontSize = 35.sp
+                    )
+                )
+                Spacer(modifier= Modifier.padding(vertical = 3.dp))
+                Text(
+                    "250+ verified guides worldwide",
+                    style = TextStyle(
+                        color = White,
+                        fontFamily = FontFamily(Font(R.font.outfitmedium)),
+                        fontSize = 18.sp
+                    )
+                )
+                Spacer(modifier = Modifier.height(3.dp))
             }
 
             Column(
                 modifier = Modifier
-                    .padding(top = 280.dp)
+                    .padding(top = 410.dp)
                     .background(BackgroundWhite)
                     .fillMaxSize()
-
             ) {
                 Spacer(modifier = Modifier.padding(top = 65.dp))
-                Row (
-
-                ) {
-
+                Row {
                     Text(
                         "Featured Trekkers",
                         style = TextStyle(
@@ -122,66 +159,69 @@ fun HomeScreen(){
                             fontFamily = FontFamily(Font(R.font.outfitbold)),
                             fontSize = 25.sp
                         ),
-                        modifier = Modifier
-                            .padding(horizontal = 25.dp)
+                        modifier = Modifier.padding(horizontal = 25.dp)
                     )
                 }
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(BackgroundWhite)
-                    ) {
-                        items(allUsers.value!!.size) { index ->
-                            val data = allUsers.value!![index]
-                            Card(
+
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(BackgroundWhite)
+                ) {
+                    items(allUsers.value!!.size) { index ->
+                        val data = allUsers.value!![index]
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 20.dp)
+                                .padding(horizontal = 22.dp)
+                                .shadow(
+                                    elevation = 4.dp,
+                                    shape = RoundedCornerShape(12.dp),
+                                    clip = false
+                                )
+                        ) {
+                            Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(vertical = 20.dp)
-                                    .padding(horizontal = 22.dp)
-                            )
-                            {
-                                Row(
+                                    .background(White)
+                                    .padding(30.dp)
+                            ) {
+                                Column(
                                     modifier = Modifier
-                                        .fillMaxWidth()
+                                        .weight(1f)
                                         .background(White)
-                                        .padding(30.dp)
-                                )
-                                {
-                                    Column(
-                                        modifier = Modifier.weight(1f)
-                                            .background(White)
-                                    )
-                                    {
-                                        Text(
-                                            data.fullName,
-                                            style = TextStyle(
-                                                fontSize = 22.sp,
-                                                fontWeight = FontWeight.SemiBold,
-                                                fontFamily = FontFamily(Font(R.font.outfit)),
-                                                color = DarkGreen
-                                            )
+                                ) {
+                                    Text(
+                                        data.fullName,
+                                        style = TextStyle(
+                                            fontSize = 22.sp,
+                                            fontWeight = FontWeight.SemiBold,
+                                            fontFamily = FontFamily(Font(R.font.outfit)),
+                                            color = DarkGreen
                                         )
-                                    }
+                                    )
                                 }
                             }
                         }
                     }
-
+                }
             }
+
             OutlinedTextField(
                 value = "",
                 onValueChange = {},
                 placeholder = {
-                    Text("Search destinations...",
-                           modifier = Modifier
-                               .padding(top = 7.dp),
+                    Text(
+                        "Search destinations...",
+                        modifier = Modifier.padding(top = 7.dp),
                         style = TextStyle(
                             color = LightGreen,
                             fontSize = 18.sp,
                             fontFamily = FontFamily(Font(R.font.outfitregular))
                         )
-                        )
-                              },
+                    )
+                },
                 leadingIcon = {
                     Icon(
                         painter = painterResource(R.drawable.search),
@@ -190,22 +230,18 @@ fun HomeScreen(){
                             .size(34.dp)
                             .padding(horizontal = 8.dp),
                         tint = LightGreen
-
-
-
                     )
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 24.dp)
-                    .offset(y = 250.dp)
+                    .offset(y = 380.dp)
                     .height(68.dp)
                     .shadow(
                         elevation = 3.dp,
                         shape = RoundedCornerShape(16.dp),
                         clip = false
                     ),
-
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = White,
                     unfocusedContainerColor = White,
@@ -214,10 +250,7 @@ fun HomeScreen(){
                 ),
                 shape = RoundedCornerShape(16.dp)
             )
-
-
         }
-
     }
 }
 

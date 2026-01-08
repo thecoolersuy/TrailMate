@@ -6,7 +6,8 @@ data class PackageModel(
     val packageDuration : Int = 0,
     val packageCapacity: Int = 0,
     val packageDifficulty : String ="",
-    val packagePrice : Double = 0.0
+    val packagePrice : Double = 0.0,
+    var image: String = "",
 ){
     fun toMap(): Map<String, Any?>{
         return mapOf(
@@ -16,6 +17,7 @@ data class PackageModel(
             "packageCapacity" to packageCapacity,
             "packageDifficulty" to packageDifficulty,
             "packagePrice" to packagePrice,
+            "image" to image
         )
     }
 }

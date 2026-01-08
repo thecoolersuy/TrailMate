@@ -67,6 +67,7 @@ import coil.compose.AsyncImage
 import com.example.trailmate.model.PackageModel
 import com.example.trailmate.ui.theme.ButtonGreen
 import com.example.trailmate.ui.theme.Green
+import com.example.trailmate.ui.theme.OrangeText
 
 @Composable
 fun ExploreScreen() {
@@ -269,9 +270,22 @@ fun ExploreScreen() {
                             .fillMaxWidth()
                             .padding(vertical = 20.dp)
                             .padding(horizontal = 22.dp)
+                            .shadow(
+                                elevation = 4.dp,
+                                shape = RoundedCornerShape(12.dp),
+                                clip = false
+                            )
 
                     )
                     {
+                        AsyncImage(
+                            model = data.image,
+                            contentDescription = data.packageName,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(180.dp),
+                            contentScale = ContentScale.Crop
+                        )
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
