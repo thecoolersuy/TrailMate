@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.trailmate.ui.theme.Blue
+import com.example.trailmate.ui.theme.White
 
 @Composable
 fun BookingScreen(){
@@ -16,7 +17,7 @@ fun BookingScreen(){
         Column (
             modifier = Modifier
                 .fillMaxSize()
-                .background(Blue)
+                .background(White)
         ){  }
 
     }
