@@ -22,16 +22,21 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -47,6 +52,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.trailmate.R
+import com.example.trailmate.model.PackageModel
+import com.example.trailmate.model.UserModel
 import com.example.trailmate.repository.UserRepoImpl
 import com.example.trailmate.ui.theme.BackgroundWhite
 import com.example.trailmate.ui.theme.DarkGreen
@@ -63,6 +70,9 @@ fun ProfileScreen() {
     val userViewModel = remember { UserViewModel(UserRepoImpl()) }
     val currentUser = userViewModel.getCurrentUser()
     val user = userViewModel.users.observeAsState(initial = null)
+    var showDialog by remember { mutableStateOf(false) }
+    var fullName by remember { mutableStateOf("") }
+    var location by remember {mutableStateOf("")}
 
     LaunchedEffect(currentUser) {
         currentUser?.uid?.let { userId ->
@@ -97,6 +107,7 @@ fun ProfileScreen() {
                         .padding(top = 20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+
                     Text(
                         "PROFILE",
                         style = TextStyle(
@@ -109,27 +120,114 @@ fun ProfileScreen() {
                     )
 
                     // Avatar Circle
-                    Box(
-                        modifier = Modifier
-                            .size(100.dp)
-                            .clip(CircleShape)
-                            .background(OrangeText),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = user.value?.fullName?.firstOrNull()?.uppercaseChar()?.toString() ?: "U",
-                            style = TextStyle(
-                                color = White,
-                                fontSize = 48.sp,
-                                fontWeight = FontWeight.Bold,
-                                fontFamily = FontFamily(Font(R.font.outfit))
-                            )
-                        )
-                    }
+//                    Box(
+//                        modifier = Modifier
+//                            .size(100.dp)
+//                            .clip(CircleShape)
+//                            .background(OrangeText),
+//                        contentAlignment = Alignment.Center
+//                    ) {
+//                        Text(
+//                            text = user.value?.fullName?.firstOrNull()?.uppercaseChar()?.toString() ?: "U",
+//                            style = TextStyle(
+//                                color = White,
+//                                fontSize = 48.sp,
+//                                fontWeight = FontWeight.Bold,
+//                                fontFamily = FontFamily(Font(R.font.outfit))
+//                            )
+//                        )
+//                    }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
                     // User Name
+                    if (showDialog) {
+                        AlertDialog(
+                            onDismissRequest = {
+                                showDialog = false
+                            },
+                            confirmButton = {
+                                TextButton(onClick = {
+                                    val model = UserModel(
+                                        user.value!!.userId,
+                                        user.value!!.fullName,
+                                        user.value!!.location
+                                    )
+                                    userViewModel.updateProfile(model)
+                                    { success, message ->
+
+                                        if (success) {
+                                            showDialog = false
+                                        }
+
+                                    }
+                                }) { Text("Update") }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = {
+                                    showDialog = false
+                                })
+                                {
+                                    Text("Cancel")
+                                }
+                            },
+                            title = { Text("Update Package") },
+                            text = {
+                                Column {
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    OutlinedTextField(
+                                        value = fullName,
+                                        onValueChange = { data ->
+                                            fullName = data
+                                        },
+                                        placeholder = {
+                                            Text("e.g. Mt. Manaslu Circuit Trek")
+                                        }
+                                    )
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    OutlinedTextField(
+                                        value = location
+                                        onValueChange = { data ->
+                                            location = data
+                                        },
+                                        placeholder = {
+                                            Text("Duration")
+                                        }
+                                    )
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    OutlinedTextField(
+                                        value = packageCapacity,
+                                        onValueChange = { data ->
+                                            packageCapacity = data
+                                        },
+                                        placeholder = {
+                                            Text("Capacity")
+                                        }
+                                    )
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    OutlinedTextField(
+                                        value = packageDifficulty,
+                                        onValueChange = { data ->
+                                            packageDifficulty = data
+                                        },
+                                        placeholder = {
+                                            Text("e.g.easy, medium hard ")
+                                        }
+                                    )
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    OutlinedTextField(
+                                        value = packagePrice,
+                                        onValueChange = { data ->
+                                            packagePrice = data
+                                        },
+                                        placeholder = {
+                                            Text("NPR / $")
+                                        }
+                                    )
+                                }
+                            }
+                        )
+                    }
                     Text(
                         text = user.value?.fullName ?: "User Name",
                         style = TextStyle(
@@ -231,7 +329,6 @@ fun ProfileScreen() {
                     icon = Icons.Default.Edit,
                     title = "Edit Profile",
                     onClick = {
-                        // Navigate to edit profile
                     }
                 )
 
