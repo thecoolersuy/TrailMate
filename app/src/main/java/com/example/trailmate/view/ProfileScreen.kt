@@ -119,24 +119,6 @@ fun ProfileScreen() {
                         modifier = Modifier.padding(bottom = 24.dp)
                     )
 
-                    // Avatar Circle
-//                    Box(
-//                        modifier = Modifier
-//                            .size(100.dp)
-//                            .clip(CircleShape)
-//                            .background(OrangeText),
-//                        contentAlignment = Alignment.Center
-//                    ) {
-//                        Text(
-//                            text = user.value?.fullName?.firstOrNull()?.uppercaseChar()?.toString() ?: "U",
-//                            style = TextStyle(
-//                                color = White,
-//                                fontSize = 48.sp,
-//                                fontWeight = FontWeight.Bold,
-//                                fontFamily = FontFamily(Font(R.font.outfit))
-//                            )
-//                        )
-//                    }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -153,14 +135,7 @@ fun ProfileScreen() {
                                         user.value!!.fullName,
                                         user.value!!.location
                                     )
-                                    userViewModel.updateProfile(model)
-                                    { success, message ->
 
-                                        if (success) {
-                                            showDialog = false
-                                        }
-
-                                    }
                                 }) { Text("Update") }
                             },
                             dismissButton = {
@@ -186,7 +161,7 @@ fun ProfileScreen() {
                                     )
                                     Spacer(modifier = Modifier.height(10.dp))
                                     OutlinedTextField(
-                                        value = location
+                                        value = location,
                                         onValueChange = { data ->
                                             location = data
                                         },
@@ -195,35 +170,6 @@ fun ProfileScreen() {
                                         }
                                     )
                                     Spacer(modifier = Modifier.height(10.dp))
-                                    OutlinedTextField(
-                                        value = packageCapacity,
-                                        onValueChange = { data ->
-                                            packageCapacity = data
-                                        },
-                                        placeholder = {
-                                            Text("Capacity")
-                                        }
-                                    )
-                                    Spacer(modifier = Modifier.height(10.dp))
-                                    OutlinedTextField(
-                                        value = packageDifficulty,
-                                        onValueChange = { data ->
-                                            packageDifficulty = data
-                                        },
-                                        placeholder = {
-                                            Text("e.g.easy, medium hard ")
-                                        }
-                                    )
-                                    Spacer(modifier = Modifier.height(10.dp))
-                                    OutlinedTextField(
-                                        value = packagePrice,
-                                        onValueChange = { data ->
-                                            packagePrice = data
-                                        },
-                                        placeholder = {
-                                            Text("NPR / $")
-                                        }
-                                    )
                                 }
                             }
                         )

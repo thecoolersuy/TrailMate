@@ -64,6 +64,7 @@ import com.example.trailmate.ui.theme.TrailMateTheme
 import com.example.trailmate.ui.theme.White
 import com.example.trailmate.view.ForgetPasswordActivity
 import com.example.trailmate.viewmodel.UserViewModel
+import androidx.compose.ui.platform.testTag
 
 
 class SigninActivity : ComponentActivity() {
@@ -110,6 +111,7 @@ fun SigninBody(){
                     context.startActivity(intent)
                 },
                 modifier = Modifier
+                    .testTag("backButton")
                     .padding(20.dp)
                     .size(45.dp)
                     .background(
@@ -187,7 +189,8 @@ fun SigninBody(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp)
-                    .padding(horizontal = 25.dp),
+                    .padding(horizontal = 25.dp)
+                    .testTag("emailInput"),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = White,
                     focusedBorderColor = StrokeGrey,
@@ -229,7 +232,8 @@ fun SigninBody(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp)
-                    .padding(horizontal = 25.dp),
+                    .padding(horizontal = 25.dp)
+                    .testTag("passwordInput"),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedContainerColor = White,
                     focusedBorderColor = StrokeGrey,
@@ -247,7 +251,8 @@ fun SigninBody(){
                     .clickable {
                         val intent = Intent(context, ForgetPasswordActivity::class.java)
                         context.startActivity(intent)
-                    },
+                    }
+                    .testTag("forgetPasswordLink"),
                 style = TextStyle(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
@@ -273,7 +278,8 @@ fun SigninBody(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp)
-                    .padding(horizontal = 25.dp),
+                    .padding(horizontal = 25.dp)
+                    .testTag("signInButton"),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = ButtonGreen
@@ -328,7 +334,8 @@ fun SigninBody(){
                     modifier = Modifier
                         .weight(1f)
                         .width(150.dp)
-                        .height(50.dp),
+                        .height(50.dp)
+                        .testTag("googleButton"),
                     colors = ButtonDefaults.buttonColors(
                           containerColor = BackgroundWhite,
 
@@ -359,6 +366,7 @@ fun SigninBody(){
                         .weight(1f)
                         .width(150.dp)
                         .height(50.dp)
+                        .testTag("facebookButton")
                     ,
                     colors = ButtonDefaults.buttonColors(
                         containerColor = BackgroundWhite,
@@ -407,6 +415,7 @@ fun SigninBody(){
                         fontSize = 15.sp
                     ),
                 modifier = Modifier
+                    .testTag("signUpLink")
                     .clickable(){
                         val intent = Intent(context, SignupActivity:: class.java)
                         context.startActivity(intent)

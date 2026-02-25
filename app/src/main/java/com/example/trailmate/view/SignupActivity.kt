@@ -72,7 +72,7 @@ import com.example.trailmate.ui.theme.LightBlue
 import com.example.trailmate.ui.theme.LightGreen
 import com.example.trailmate.ui.theme.PurpleGrey40
 import com.example.trailmate.ui.theme.StrokeGrey
-
+import androidx.compose.ui.platform.testTag
 import com.example.trailmate.ui.theme.TrailMateTheme
 import com.example.trailmate.ui.theme.White
 import com.example.trailmate.viewmodel.UserViewModel
@@ -126,6 +126,7 @@ fun SignupBody(){
                         color = BackButtonGrey,
                         shape = RoundedCornerShape(12.dp)  // Adjust shape as needed
                     )
+                    .testTag("backButton")
             ) {
                 Icon(
                     painter = painterResource(R.drawable.baseline_arrow_back_24),
@@ -182,7 +183,8 @@ fun SignupBody(){
                     Text(
                         "Enter your full name",
                         modifier = Modifier
-                            .padding(horizontal = 8.dp),
+                            .padding(horizontal = 8.dp)
+                            .testTag("fullnameInput"),
                         style = TextStyle(
                             fontSize = 16.sp,
                             color = LightGreen,
@@ -226,7 +228,8 @@ fun SignupBody(){
                     .fillMaxWidth()
                     .padding(horizontal = 25.dp)
                     .border(width = 1.dp, color = StrokeGrey, shape = RoundedCornerShape(15.dp))
-                    .clip(RoundedCornerShape(15.dp)),
+                    .clip(RoundedCornerShape(15.dp))
+                    .testTag("locationInput"),
                 placeholder = {
                     Text("Enter your location",
                         modifier = Modifier
@@ -280,7 +283,8 @@ fun SignupBody(){
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp)
-                        .padding(horizontal = 25.dp),
+                        .padding(horizontal = 25.dp)
+                        .testTag("emailInput") ,
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedContainerColor = White,
                         focusedBorderColor = StrokeGrey,
@@ -321,7 +325,8 @@ fun SignupBody(){
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp)
-                        .padding(horizontal = 25.dp),
+                        .padding(horizontal = 25.dp)
+                        .testTag("passwordInput"),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedContainerColor = White,
                         focusedBorderColor = StrokeGrey,
@@ -362,7 +367,8 @@ fun SignupBody(){
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(55.dp)
-                        .padding(horizontal = 25.dp),
+                        .padding(horizontal = 25.dp)
+                        .testTag("confirmPasswordInput"),
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedContainerColor = White,
                         focusedBorderColor = StrokeGrey,
@@ -467,7 +473,8 @@ fun SignupBody(){
                     modifier = Modifier
                         .weight(1f)
                         .height(50.dp)
-                        .padding(horizontal = 10.dp),
+                        .padding(horizontal = 10.dp)
+                        .testTag("googleButton"),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = White,
 
@@ -501,7 +508,8 @@ fun SignupBody(){
                     modifier = Modifier
                         .weight(1f)
                         .height(50.dp)
-                        .padding(horizontal = 10.dp),
+                        .padding(horizontal = 10.dp)
+                        .testTag("facebookButton"),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = White,
 
@@ -555,6 +563,7 @@ fun SignupBody(){
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = FontFamily(Font(R.font.inter)),
                     modifier = Modifier
+                        .testTag("signInLink")
                         .clickable(){
                             val intent = Intent(context, SigninActivity::class.java)
 
