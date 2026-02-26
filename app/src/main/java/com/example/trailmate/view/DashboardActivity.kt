@@ -75,7 +75,7 @@ fun DashboardBody(){
     val navList = listOf(
         NavItem(label = "Home", icon = R.drawable.home),
         NavItem(label = "Explore", icon = R.drawable.compass),
-        NavItem(label = "Bookings", icon = R.drawable.calendar),
+        NavItem(label = "Reviews", icon = R.drawable.calendar),
         NavItem(label = "Profile", icon = R.drawable.user),
     )
 
@@ -137,7 +137,7 @@ fun DashboardBody(){
             when(selectedIndex){
                 0 -> HomeScreen()
                 1 -> ExploreScreen()
-                2 -> BookingScreen()
+                2 -> ReviewScreen()
                 3 -> ProfileScreen()
                 else -> HomeScreen()
             }

@@ -129,7 +129,7 @@ import com.example.trailmate.viewmodel.PackageViewModel
                         )
                     } else {
                         Image(
-                            painterResource(R.drawable.search),
+                            painterResource(R.drawable.imageplaceholder),
                             contentDescription = null,
                             modifier = Modifier.fillMaxSize(),
                             contentScale = ContentScale.Crop
