@@ -77,6 +77,11 @@ import com.example.trailmate.ui.theme.TrailMateTheme
 import com.example.trailmate.ui.theme.White
 import com.example.trailmate.viewmodel.UserViewModel
 import java.nio.file.WatchEvent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 
 class SignupActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,6 +104,36 @@ fun SignupBody(){
     var confirmpassword by remember{ mutableStateOf("")}
     var terms by remember { mutableStateOf(false) }
     var context = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+        try {
+            val account = task.getResult(ApiException::class.java)
+            val idToken = account.idToken
+            if (idToken != null) {
+                userViewModel.signInWithGoogle(idToken) { success, msg ->
+                    if (success) {
+                        val intent = Intent(context, DashboardActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        context.startActivity(intent)
+                    } else {
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        } catch (e: ApiException) {
+            Toast.makeText(context, "Google sign up failed: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    val googleSignInClient = remember {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(context.getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        GoogleSignIn.getClient(context, gso)
+    }
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -469,7 +504,9 @@ fun SignupBody(){
             Spacer(modifier = Modifier.height(20.dp))
             Row() {
                 Button(
-                    onClick = {},
+                    onClick = {
+                        launcher.launch(googleSignInClient.signInIntent)
+                    },
                     modifier = Modifier
                         .weight(1f)
                         .height(50.dp)

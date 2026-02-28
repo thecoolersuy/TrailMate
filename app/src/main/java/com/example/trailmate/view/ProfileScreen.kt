@@ -62,6 +62,8 @@ import com.example.trailmate.ui.theme.LightGreen
 import com.example.trailmate.ui.theme.OrangeText
 import com.example.trailmate.ui.theme.White
 import com.example.trailmate.viewmodel.UserViewModel
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.filled.ExitToApp
 
 @Composable
 fun ProfileScreen() {
@@ -268,27 +270,24 @@ fun ProfileScreen() {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
-                // Edit Profile Option
                 ProfileMenuItem(
-                    icon = Icons.Default.Edit,
-                    title = "Edit Profile",
+                    icon = Icons.Default.ExitToApp,
+                    title = "Logout",
                     onClick = {
+                        userViewModel.logOut { success, msg ->
+                            if (success) {
+                                val intent = Intent(context, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                context.startActivity(intent)
+                            }
+                        }
                     }
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
 
-                // Saved Packages Option
-                ProfileMenuItem(
-                    icon = Icons.Default.Favorite,
-                    title = "Saved Packages",
-                    onClick = {
-                        // Navigate to saved packages
-                    },
 
-                )
 
                 Spacer(modifier = Modifier.height(12.dp))
 

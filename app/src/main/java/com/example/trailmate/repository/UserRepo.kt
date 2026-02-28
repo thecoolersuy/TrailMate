@@ -53,4 +53,8 @@ interface UserRepo {
         email:String,
         callback: (Boolean, String) -> Unit
     )
+    fun signInWithGoogle(
+        idToken: String,
+        callback: (Boolean, String) -> Unit
+    )
 }

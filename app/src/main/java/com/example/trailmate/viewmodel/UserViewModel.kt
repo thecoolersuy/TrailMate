@@ -106,4 +106,11 @@ class UserViewModel(val repo: UserRepo): ViewModel() {
               repo.forgetPassword(email, callback)
         }
 
+        fun signInWithGoogle(
+           idToken: String,
+           callback: (Boolean, String) -> Unit
+        ) {
+           repo.signInWithGoogle(idToken, callback)
+          }
+
 }

@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.auth.GoogleAuthProvider
 
 class UserRepoImpl: UserRepo {
 
@@ -156,5 +157,19 @@ class UserRepoImpl: UserRepo {
                     callback(false,"${it.exception?.message}")
                 }
             }
+    }
+
+    override fun signInWithGoogle(
+        idToken: String,
+        callback: (Boolean, String) -> Unit
+    ) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential).addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback(true, "Google sign in successful")
+            } else {
+                callback(false, "${it.exception?.message}")
+            }
+        }
     }
 }
